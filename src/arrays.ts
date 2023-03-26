@@ -5,7 +5,11 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if (numbers.length === 0) {
+        return [];
+    }
+    const filteredNums = [numbers[0], numbers[numbers.length - 1]];
+    return filteredNums;
 }
 
 /**
@@ -13,7 +17,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const updatedArr = numbers.map((num: number): number => num * 3);
+    return updatedArr;
 }
 
 /**
@@ -21,7 +26,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const fixedStrings = numbers.map((str: string): number =>
+        Number(str) ? Number(str) : 0
+    );
+    return fixedStrings;
 }
 
 /**
@@ -32,7 +40,14 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    const noDollaSigns = amounts.map((amount: string): string =>
+        amount.startsWith("$") ? amount.slice(1, amount.length) : amount
+    );
+    const intMonayyyy = noDollaSigns.map((str: string): number =>
+        Number(str) ? Number(str) : 0
+    );
+
+    return intMonayyyy;
 };
 
 /**
@@ -41,7 +56,13 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const upperMsg = messages.map((message: string): string =>
+        message.endsWith("!") ? message.toUpperCase() : message
+    );
+    const filteredMsg = upperMsg.filter(
+        (message2: string): boolean => !message2.endsWith("?")
+    );
+    return filteredMsg;
 };
 
 /**
@@ -49,7 +70,8 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    const sub4Words = words.filter((word: string): boolean => word.length < 4);
+    return sub4Words.length;
 }
 
 /**
@@ -58,7 +80,11 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const isRGB = colors.every(
+        (color: string): boolean =>
+            color === "red" || color === "blue" || color === "green"
+    );
+    return isRGB;
 }
 
 /**
@@ -69,7 +95,14 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    const sum = addends.reduce(
+        (accumulator, currentVal) => accumulator + currentVal
+    );
+    const plusStr = addends.join("+");
+    return String(sum) + "=" + plusStr;
 }
 
 /**
@@ -82,5 +115,27 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    if (values.length != 0) {
+        const allPos = values.every((number: number): boolean => number >= 0); // works in testing
+        if (allPos) {
+            const valSum = values.reduce((sum, currentVal) => sum + currentVal);
+            return [...values, valSum];
+        } else {
+            const negIndex = values.findIndex(
+                (num: number): boolean => num < 0
+            );
+            console.log(negIndex);
+            const noNeg = values.slice(0, negIndex);
+            const noNegSum = noNeg.reduce(
+                (sum, currentNum) => sum + currentNum,
+                0
+            );
+            const result = [...values];
+            result.splice(negIndex + 1, 0, noNegSum);
+            console.log(result);
+            return result;
+        }
+    }
+
+    return [0];
 }
