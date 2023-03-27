@@ -124,7 +124,6 @@ export function injectPositive(values: number[]): number[] {
             const negIndex = values.findIndex(
                 (num: number): boolean => num < 0
             );
-            console.log(negIndex);
             const noNeg = values.slice(0, negIndex);
             const noNegSum = noNeg.reduce(
                 (sum, currentNum) => sum + currentNum,
@@ -132,7 +131,6 @@ export function injectPositive(values: number[]): number[] {
             );
             const result = [...values];
             result.splice(negIndex + 1, 0, noNegSum);
-            console.log(result);
             return result;
         }
     }
