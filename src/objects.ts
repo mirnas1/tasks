@@ -154,5 +154,5 @@ export function mergeQuestion(
         published: false,
         points: { points }.points
     };
-    console.log("stuff");
 }
+//finished task 6
