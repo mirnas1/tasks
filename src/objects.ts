@@ -155,3 +155,4 @@ export function mergeQuestion(
         points: { points }.points
     };
 }
+//finished task 6
