@@ -42,13 +42,14 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
+    let isRight = false;
     if (question.type === "short_answer_question") return true;
     if (question.type === "multiple_choice_question") {
-        const isRight = question.options.some(
+        isRight = question.options.some(
             (option: string): boolean => answer === option
         );
-        return isRight;
     }
+    return isRight;
 }
 
 /**
@@ -116,7 +117,8 @@ export function publishQuestion(question: Question): Question {
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
     return {
-        ...oldQuestion, id: id,
+        ...oldQuestion,
+        id: id,
         name: "Copy of " + oldQuestion.name,
         published: false
     };
